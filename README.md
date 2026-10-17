@@ -42,7 +42,4 @@ Spring Data JPA, Hibernate, and MySQL.
 
 http://localhost:8080/swagger-ui.html
 
-## Security
 
-Never commit credentials or signing keys.
-This project is a learning prototype, not a production banking platform.
