@@ -1,0 +1,46 @@
+package com.jvlcode.springboot_demo.entity;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "fraud_alerts")
+public class FraudAlert {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "transaction_id", nullable = false, unique = true)
+    private BankTransaction transaction;
+
+    @Column(nullable = false, length = 500)
+    private String reason;
+
+    @Column(nullable = false)
+    private boolean reviewed = false;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    public void prePersist() {
+        createdAt = LocalDateTime.now();
+    }
+
+    public Long getId() { return id; }
+
+    public BankTransaction getTransaction() { return transaction; }
+    public void setTransaction(BankTransaction transaction) {
+        this.transaction = transaction;
+    }
+
+    public String getReason() { return reason; }
+    public void setReason(String reason) { this.reason = reason; }
+
+    public boolean isReviewed() { return reviewed; }
+    public void setReviewed(boolean reviewed) { this.reviewed = reviewed; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+}
